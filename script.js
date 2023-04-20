@@ -1,57 +1,62 @@
 function categoryNews(){
-    // const category = {
-    //     "id": null,
-    //     "name": "Cinema"
-    // }
-    
-    // // // POST
-    // fetch("https://virtserver.swaggerhub.com/a-berezhkov/todo_app_sc_bc/1.0.0/rest-news-category", {
-    //     method: "POST",
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(category)
-    // })
-    //     .then(data => console.log(data))
-    
-    // GET
-    fetch("https://virtserver.swaggerhub.com/a-berezhkov/todo_app_sc_bc/1.0.0/rest-news-category", {
+    for(i=11; i<15; i++){
+        fetch(`http://24api.ru/rest-news-category/${i}`, {
         "method": "GET"
-    })
+        })
         .then(data => data.json())
-        .then(data => console.log(data))
+        .then(data => categoryAtSite(data))
+    }
 }
-// categoryNews()
-
+categoryNews()
 
 function news(){
-    const news = {
-        "id": null,
-        "title": "новость1",
-        "body": "Текст про новость1",
-        "created_at": "2022-02-18",
-        "updated_at": "2022-02-18",
-        "updated_by": "1",
-        "category_id": "0"
-    }
-    
-    // POST
-    // fetch("https://virtserver.swaggerhub.com/a-berezhkov/todo_app_sc_bc/1.0.0/rest-news", {
-    //     method: "POST",
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(news)
-    // })
-    //     .then(data => console.log(data))
-    
-    // GET
-    fetch("https://virtserver.swaggerhub.com/a-berezhkov/todo_app_sc_bc/1.0.0/rest-news", {
+    for(i=3; i<8; i++){
+        fetch(`http://24api.ru/rest-news/${i}`, {
         "method": "GET"
-    })
+        })
         .then(data => data.json())
-        .then(data => console.log(data))
+        .then(data => newsAtSite(data))
+    }
 }
 news()
 
+function categoryAtSite(obj) {
+    const container = document.body.querySelector(".category__wrapper")
+    
+    const category = document.createElement('div')
+    category.classList.add(`category`)
 
+    const p = document.createElement('p')
+    p.innerText = obj.name
+
+    container.append(category)
+    category.append(p)
+}
+
+function newsAtSite(obj){
+    const container = document.body.querySelector(".news__wrapper")
+
+    const news = document.createElement('div')
+    news.classList.add(`news`)
+
+    const title = document.createElement('p')
+    title.classList.add('title')
+    title.innerText = obj.title
+    const text = document.createElement('p')
+    title.classList.add('text')
+    text.innerText = obj.body
+
+    container.append(news)
+    news.append(title, text)
+}
+
+// let categoryA = document.querySelectorAll('.category')
+
+// function click (element){
+//     element.forEach( el => {
+//         // el.classList.remove('active')
+//         el.addEventListener('click', () =>{
+//             el.classList.toggle('active')
+//         })
+//     })
+// }
